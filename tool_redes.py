@@ -17,8 +17,8 @@ def dns_server():
     print("---------------------------------------------------------------")
     # Exemplos
     print('nslookup [DOMAIN]')
-    print('nslookup www.exemple')
-    # Inuput para pegar o dominio do site
+    print('nslookup www.example')
+    # Input para pegar o dominio do site
     domain = input("nslookup ")
     #parte do codigo para o OS.SYSTEM
     rest_the_code = "grep 'Address: 1' | echo THE IP ADDRESS IS: $(awk '{print $2}')"
@@ -31,7 +31,7 @@ def ping():
     print("---------------------------------------------------------------")
     # Exemplos
     print("ping [IP or DOMAIN]")
-    print("EX: ping 192.168.9.9 or www.exemple.com\n")
+    print("EX: ping 192.168.9.9 or www.example.com\n")
     # Input para pegar o IP
     ip = input("ping ")
     # Envia 5 pacotes para testar conectividade
@@ -42,9 +42,9 @@ def ping():
 # Tool que verifica a rota de um pacote até uma maquina
 def packet_traffic():
     print("---------------------------------------------------------------")
-    # Eemplos
+    # Exemplos
     print("traceroute [IP or DOMAIN]")
-    print("Ex: traceroute 192.168.1.3 or www.exemple.com")
+    print("Ex: traceroute 192.168.1.3 or www.example.com")
     # Input para pegar o IP ou DOMAIN
     ip_domain = input("traceroute ")
     os.system(f"traceroute {ip_domain}")
@@ -95,7 +95,7 @@ def main():
                 actions[opc]()
 
             else:
-                print("OPTION NOT AVALIABLE")
+                print("OPTION NOT AVAILABLE")
 
         except ValueError:
             print("INVALID INPUT. PLEASE ENTER A NUMBER.")
