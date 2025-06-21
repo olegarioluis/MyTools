@@ -4,38 +4,57 @@ import os
 # Tool que verifica o ip da maquina
 def my_ip():
 
+    # Bilioteca Importada
+    import socket
     print("---------------------------------------------------------------")
-    # Retorna o endereço IPV4
-    os.system("ifconfig wlp1s0 | grep 'inet ' | echo  YOUR IPV4 IS: $(awk '{print $2}')")
-    # Retorna o endereço IPV6
-    os.system("ifconfig wlp1s0 | grep 'inet6 ' | echo YOUR IPV6 IS: $(awk '{print $2}')")
+    # "TRY / EXCEPT" para lidar com erros(exceções)
+    try:
+        # Conecta a um IP público qualquer sem enviar dados (só para descobrir a interface de saída)
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80)) # Google DNS
+        ip = s.getsockname()[0]
+        s.close()
+        print(f"YOUR IPV4 IS: {ip}")
+    except Exception as e:
+        print(f"Erro ao obter IP: {e}")
     print("---------------------------------------------------------------\n")
 
 # Tool que verifica o endereço ip de um dominio
 def dns_server():
 
+    # Bilioteca Importada
+    import socket
     print("---------------------------------------------------------------")
     # Exemplos
     print('nslookup [DOMAIN]')
     print('nslookup www.example')
     # Input para pegar o dominio do site
     domain = input("nslookup ")
-    #parte do codigo para o OS.SYSTEM
-    rest_the_code = "grep 'Address: 1' | echo THE IP ADDRESS IS: $(awk '{print $2}')"
-    os.system(f"\nnslookup {domain} | {rest_the_code}")
+    # "TRY / EXCEPT" para lidar com erros(exceções)
+    try:
+        ip = socket.gethostbyname(domain)
+        print(f"O IP do domínio {domain} é: {ip}")
+    except socket.gaierror:
+        print("Domínio Inválido.")
     print("---------------------------------------------------------------\n")
 
 # Tool que faz um teste de conectividade com uma maquina
 def ping():
 
+    # Bilioteca Importada
+    import subprocess
     print("---------------------------------------------------------------")
     # Exemplos
     print("ping [IP or DOMAIN]")
     print("EX: ping 192.168.9.9 or www.example.com\n")
     # Input para pegar o IP
     ip = input("ping ")
-    # Envia 5 pacotes para testar conectividade
-    os.system(f"ping -c 5 {ip}")
+    # "TRY / EXCEPT" para lidar com erros(exceções)
+    try:
+        # Envia 5 pacotes para testar conectividade
+        subprocess.run(["ping", "-c", "5", ip], check=True)
+    except subprocess.CalledProcessError:
+        print("Erro ao executtar o ping.")
     print("---------------------------------------------------------------\n")
 
 
